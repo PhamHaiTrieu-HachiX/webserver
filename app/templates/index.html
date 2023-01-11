@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+<!-- Header -->
+{% block head %}
+<script src="{{ url_for('static',filename='js/axios.js') }}"></script>
+<script src="{{ url_for('static',filename='js/script.js') }}"></script>
+<link
+	href="{{ url_for('static',filename='css/auto-complete.css') }}"
+	rel="stylesheet"
+	type="text/css"
+/>
+
+<title>AutoComplete</title>
+
+{% endblock %}
+
+<!-- Body -->
+{% block body %}
+<h1>Japanese Banks</h1>
+<div class="autocomplete" style="width: 300px">
+	<input
+		id="bank"
+		type="text"
+		placeholder="Bank"
+		class="autocomplete-input"
+		oninput="bank_autocomplete(id)"
+		onclick="bank_autocomplete(id)"
+		/>
+</div>
+<div class="autocomplete" style="width: 300px">
+	<input
+		id="branch"
+		type="text"
+		placeholder="Branch"
+		class="autocomplete-input"
+		oninput="branch_autocomplete(id)"
+		onclick="branch_autocomplete(id)"
+		/>
+</div>
+
+<script></script>
+<!-- <script src="/js/script.js"></script> -->
+
+{% endblock %}

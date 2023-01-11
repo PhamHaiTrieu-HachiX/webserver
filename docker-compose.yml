@@ -1,0 +1,35 @@
+version: '3'
+
+secrets:
+  postgres_user:
+    file: ./secrets/postgres_user.txt
+  postgres_password:
+    file: ./secrets/postgres_password.txt
+
+services:
+  web:
+    build: .
+    ports:
+      - '5000:5000'
+    entrypoint:
+      - tail
+      - -f
+      - /dev/null
+    volumes:
+      - ./app/:/root/
+    depends_on:
+      - db
+    
+    environment:
+      POSTGRES_DB: trieu
+      DATABASE_PORT: 5432
+      POSTGRES_USER_FILE: /run/secrets/postgres_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+
+  db:
+    image: postgres:latest
+    ports:
+      - 5433:5432
+    volumes:
+      - ./docker-db_data:/var/lib/postgresql
+    env_file: .env

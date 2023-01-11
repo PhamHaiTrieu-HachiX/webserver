@@ -1,0 +1,20 @@
+/*********** Base style ***********/
+* {
+	font-family: 'Courier New', Courier, monospace;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	list-style: none;
+}
+
+a:visited {
+	color: #0000ee;
+}
+
+body {
+	position: relative;
+	background-color: #b6b6b6;
+	overflow-y: scroll;
+	min-width: 100%;
+	min-height: 100%;
+}
