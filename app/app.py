@@ -9,6 +9,11 @@ app = Flask(__name__)
 # app.config['SECRET_KEY'] = 'trieu'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123123123@localhost/trieu'
 
+if __name__ == "__main__":
+  app.run(debug=True)   # Only in developement mode, not for Production
+
+
+
 # Set up database connection
 with open("info.json", "r", encoding="utf8") as ff:
     info = ff.read()
@@ -89,8 +94,3 @@ def index_branch():
       
   else:
     return render_template("index.html")
-
-if __name__ == "__main__":
-  app.run(debug=True)   # Only in developement mode, not for Production
-
-
