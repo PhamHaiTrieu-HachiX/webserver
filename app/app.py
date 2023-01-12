@@ -9,8 +9,7 @@ app = Flask(__name__)
 # app.config['SECRET_KEY'] = 'trieu'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123123123@localhost/trieu'
 
-if __name__ == "__main__":
-  app.run(debug=True)   # Only in developement mode, not for Production
+
 
 
 
@@ -18,14 +17,6 @@ if __name__ == "__main__":
 with open("info.json", "r", encoding="utf8") as ff:
     info = ff.read()
 info_json = json.loads(info)
-conn = psycopg2.connect(
-    host= info_json["hostname"],
-    port= info_json["port"],
-    dbname= info_json["database"],
-    user= info_json["user"],
-    password= info_json["password"]
-)
-cursor = conn.cursor()
 
 # Index page
 @app.route('/', methods=['POST', 'GET'])
@@ -35,6 +26,14 @@ def index():
 # API Bank
 @app.route('/bank', methods=['POST', 'GET'])
 def index_bank():
+  conn = psycopg2.connect(
+      host= info_json["hostname"],
+      port= info_json["port"],
+      dbname= info_json["database"],
+      user= info_json["user"],
+      password= info_json["password"]
+  )
+  cursor = conn.cursor()
   if request.method == 'POST':
     try:
         return redirect('/')
@@ -64,6 +63,14 @@ def index_bank():
 # API Branch
 @app.route('/branch', methods=['POST', 'GET'])
 def index_branch():
+  conn = psycopg2.connect(
+      host= info_json["hostname"],
+      port= info_json["port"],
+      dbname= info_json["database"],
+      user= info_json["user"],
+      password= info_json["password"]
+  )
+  cursor = conn.cursor()
   if request.method == 'POST':
     try:
         return redirect('/')
@@ -94,3 +101,6 @@ def index_branch():
       
   else:
     return render_template("index.html")
+
+if __name__ == "__main__":
+  app.run(debug=True)   # Only in developement mode, not for Production
