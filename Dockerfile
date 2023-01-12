@@ -12,5 +12,6 @@ WORKDIR /root
 # RUN apt-get -y install nodejs
 # RUN apt-get -y install npm
 RUN pip install -r requirements.txt
+RUN cd /root
 
-# ENTRYPOINT ["python3", "app.py"]
+ENTRYPOINT ["python", "app.py"]

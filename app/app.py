@@ -7,15 +7,11 @@ import psycopg2
 # Generate App
 app = Flask(__name__)
 # app.config['SECRET_KEY'] = 'trieu'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123123123@localhost/trieu'
-
-
-
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123123123@my_db:9999/trieu'
 
 # Set up database connection
 with open("info.json", "r", encoding="utf8") as ff:
-    info = ff.read()
+  info = ff.read()
 info_json = json.loads(info)
 
 # Index page
@@ -29,6 +25,7 @@ def index_bank():
   conn = psycopg2.connect(
       host= info_json["hostname"],
       port= info_json["port"],
+      # port= 9999,
       dbname= info_json["database"],
       user= info_json["user"],
       password= info_json["password"]
@@ -105,4 +102,5 @@ def index_branch():
     return render_template("index.html")
 
 if __name__ == "__main__":
-  app.run(debug=True)   # Only in developement mode, not for Production
+  # Only run debug=True in developement mode, not for Production
+  app.run(port=5000, host="0.0.0.0",debug=True)
