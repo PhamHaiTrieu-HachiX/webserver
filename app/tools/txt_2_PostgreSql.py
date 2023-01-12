@@ -12,7 +12,7 @@ with open("info.json", "r", encoding="utf8") as ff:
 info_json = json.loads(info)
 
 host = info_json["hostname"]
-port = 9999
+port = info_json["port"]
 database = info_json["database"]
 user = info_json["user"]
 pw = info_json["password"]

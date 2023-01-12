@@ -17,9 +17,12 @@ services:
     volumes:
       - ./app/:/root/
     entrypoint:
-      - tail
-      - -f
+      - bash
+      - -c
     depends_on:
       - my_db
-    # command: >
-    #   "python app.py"
+    command: >
+      "cd /root/tools &&
+      python txt_2_PostgreSql.py &&
+      cd /root &&
+      python app.py"

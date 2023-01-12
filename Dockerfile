@@ -7,11 +7,8 @@ EXPOSE 5000
 COPY app /root
 WORKDIR /root
 
-# RUN apt-get update
-# RUN apt-get -y install pip
-# RUN apt-get -y install nodejs
-# RUN apt-get -y install npm
 RUN pip install -r requirements.txt
-RUN cd /root
+# RUN cd /root
+# CMD ["python", "/root/tools/txt_2_PostgreSql.py"]
 
-ENTRYPOINT ["python", "app.py"]
+# ENTRYPOINT ["python", "/root/tools/txt_2_PostgreSql.py"]
