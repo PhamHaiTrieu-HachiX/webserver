@@ -53,6 +53,7 @@ def index_bank():
     cursor.execute(query)
     conn.commit()
     get_datas = cursor.fetchall()
+    conn.close()
     for i in get_datas:
       datas.append(i[3])
     return datas
@@ -90,11 +91,12 @@ def index_branch():
     query  = "SELECT * FROM public.branch"
     query += " WHERE (kata_name LIKE '%{}%' OR kanji_name LIKE '%{}%'".format(value_,value_)
     query += " OR hira_name LIKE '%{}%' OR romanji_name LIKE '%{}%')".format(value_,value_)
-    query += " AND bank_id IN (SELECT id FROM public.bank WHERE {})".format(value_,value_)
+    query += " AND bank_id IN (SELECT id FROM public.bank WHERE {})".format(bank_where)
     query += " ORDER BY id LIMIT 10"
     cursor.execute(query)
     conn.commit()
     get_datas = cursor.fetchall()
+    conn.close()
     for i in get_datas:
       datas.append(i[3])
     return datas
