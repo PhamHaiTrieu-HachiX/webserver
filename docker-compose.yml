@@ -16,9 +16,9 @@ services:
       - 5000:5000
     volumes:
       - ./app/:/root/
-    entrypoint:
-      - bash
-      - -c
+    # entrypoint:
+    #   - bash
+    #   - -c
     depends_on:
       - my_db
     # command: >
