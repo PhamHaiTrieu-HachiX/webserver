@@ -8,3 +8,4 @@ COPY app /root
 WORKDIR /root
 
 RUN pip install -r requirements.txt
+RUN apt-get -y install nginx
