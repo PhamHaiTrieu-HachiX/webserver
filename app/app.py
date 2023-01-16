@@ -12,8 +12,8 @@ import os
 # Generate App
 app = Flask(__name__)
 # app.config['SECRET_KEY'] = 'trieu'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123123123@my_db:5432/trieu'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123123123@localhost:5432/trieu'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123123123@my_db:5432/trieu'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123123123@localhost:5432/trieu'
 
 
 db = SQLAlchemy(app)
@@ -82,14 +82,6 @@ def index_bank():
 # API Branch
 @app.route('/branch', methods=['POST', 'GET'])
 def index_branch():
-  # conn = psycopg2.connect(
-  #     host= info_json["hostname"],
-  #     port= info_json["port"],
-  #     dbname= info_json["database"],
-  #     user= info_json["user"],
-  #     password= info_json["password"]
-  # )
-  # cursor = conn.cursor()
   if request.method == 'POST':
     try:
         return redirect('/')
@@ -103,33 +95,14 @@ def index_branch():
     param = request.args
     branch_ = param['search']
     bank_ = param['bank']
-
-    # bank_where  = "kata_name = '{}' OR kanji_name = '{}' ".format(bank_,bank_)
-    # bank_where += "OR hira_name = '{}' OR romanji_name = '{}'".format(bank_,bank_)
-    # query  = "SELECT * FROM public.branch"
-    # query += " WHERE (kata_name LIKE '%{}%' OR kanji_name LIKE '%{}%'".format(value_,value_)
-    # query += " OR hira_name LIKE '%{}%' OR romanji_name LIKE '%{}%')".format(value_,value_)
-    # query += " AND bank_id IN (SELECT id FROM public.bank WHERE {})".format(bank_where)
-    # query += " ORDER BY id LIMIT 10"
-    # cursor.execute(query)
-    # conn.commit()
-    # get_datas = cursor.fetchall()
-    # conn.close()
-    # for i in get_datas:
-    #   datas.append(i[3])
     
-    get_datas = select_broad(Branch, value_=branch_)
     where_bank = {
       "kanji_name": bank_
     }
-    # to_log("Branch data: ", "branch")
     get_bank = select_precise(Bank, where_bank)
-    to_log("get_bank: ", "branch")
-    to_log(get_bank, "branch")
-    bank_ids = [str(i["id"]) for i in get_bank]
-    # to_log(bank_ids, "branch")
-    get_branch = get_list_from_list_by_field(get_datas, "bank_id", bank_ids)
-    # to_log(get_branch, "branch")
+    get_branch = select_broad(Branch, value_=branch_, limit=10, more={"bank_id": get_bank[0]['id']})
+    to_log("Branch data: ", "branch")
+    to_log(get_branch, "branch")
     for i in get_branch:
       datas.append(i['kanji_name'])
     return datas
@@ -140,12 +113,18 @@ def index_branch():
 
 ######################### Start Flask Sqlalchemy utilities #########################
 
-def select_broad(model_= None, value_= '', limit=None):
+def select_broad(model_= None, value_= '', limit=None, more=dict()):
   if not model_:
     return False
   
   columns = get_columns(model_, primary_key=False)
-  query = db.session.query(model_).filter(or_(*[getattr(model_,column).like(f"%{value_}%") for column in columns])).limit(limit)
+  query = db.session.query(model_).filter(or_(*[getattr(model_,column).like(f"%{value_}%") for column in columns]))
+
+  if more:
+    for k, v in more.items():
+      query = query.filter(getattr(model_,k) == str(v))
+
+  query = query.limit(limit)
 
   return [i.__dict__ for i in query]
 
