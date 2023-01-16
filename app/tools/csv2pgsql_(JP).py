@@ -1,7 +1,9 @@
 import json
 import psycopg2
-import unicodedata
 import pykakasi
+import sqlalchemy
+
+import unicodedata
 from datetime import datetime
 
 kks = pykakasi.kakasi()
@@ -107,3 +109,5 @@ conn.close()
 
 print(f"Bank: {bank}")
 print(f"Branch: {branch}")
+
+def create_table()
