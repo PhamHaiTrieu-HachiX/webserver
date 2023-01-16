@@ -1,13 +1,9 @@
-from flask import Flask, render_template, url_for, request, redirect
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.sql.expression import or_
+import json
 
-data_ = {
-  "romanji_name": "mitsui",
-  "id": "0009"
-}
+a = [{
+    "key": "value"
+}]
 
-or_expression = or_(*["0009" == item for key, item in data_.items()])
-yield(or_expression)
+b = json.dumps(a)
 
-a == b | c == d | e == f
+print(b)

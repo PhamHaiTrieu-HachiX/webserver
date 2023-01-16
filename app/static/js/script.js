@@ -30,7 +30,9 @@ function bank_autocomplete(id) {
 			/* Append the DIV as a child of the autocomplete container (input's sibling)*/
 			input_.parentNode.appendChild(a);
 			/* Check if the items */
-			for (i = 0; i < arr.length; i++) {
+			let item_length = arr.length;
+			if (item_length > 10) item_length = 10;
+			for (i = 0; i < item_length; i++) {
 				/* Create a DIV for matching element:*/
 				b = document.createElement('DIV');
 				b.innerHTML = arr[i];
@@ -100,7 +102,9 @@ function branch_autocomplete(id) {
 			/* Append the DIV as a child of the autocomplete container (input's sibling)*/
 			branch.parentNode.appendChild(a);
 			/* Check if the items */
-			for (i = 0; i < branch_arr.length; i++) {
+			let branch_item_length = branch_arr.length;
+			if (branch_item_length > 10) branch_item_length = 10;
+			for (i = 0; i < branch_item_length; i++) {
 				/* Create a DIV for matching element:*/
 				b = document.createElement('DIV');
 				b.innerHTML = branch_arr[i];
