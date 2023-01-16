@@ -1,9 +1,12 @@
-import json
+from flask import Flask, render_template, url_for, request, redirect
 
-a = [{
-    "key": "value"
-}]
+app = Flask(__name__)
+# Index page
+@app.route('/', methods=['POST', 'GET'])
+def index():
+  return render_template("index.html")
 
-b = json.dumps(a)
-
-print(b)
+if __name__ == "__main__":
+  # Only run debug=True in developement mode, not for Production
+#   app.run(port=5000, host="0.0.0.0",debug=True)
+  app.run()

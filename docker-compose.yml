@@ -21,8 +21,7 @@ services:
       - -c
     depends_on:
       - my_db
-    command: >
-      "cd /root/tools &&
-      python txt_2_PostgreSql.py &&
-      cd /root &&
-      python app.py"
+    # command: >
+    #   "cd /root/tools &&
+    #   python csv2pgsql_JP.py &&
+    #   cd /root"
