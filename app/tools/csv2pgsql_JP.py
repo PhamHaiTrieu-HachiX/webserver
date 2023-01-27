@@ -28,26 +28,24 @@ conn = psycopg2.connect(
 )
 cursor = conn.cursor()
 create_table = '''CREATE TABLE IF NOT EXISTS public.bank (\n
-                        index SERIAL,\n
+                        index SERIAL CONSTRAINT "Bank_pkey" PRIMARY KEY,\n
                         id varchar(25) NOT NULL,\n
                         kata_name text COLLATE pg_catalog."default",\n
                         kanji_name text COLLATE pg_catalog."default",\n
                         hira_name text COLLATE pg_catalog."default",\n
-                        romanji_name text COLLATE pg_catalog."default",\n
-                        CONSTRAINT "Bank_pkey" PRIMARY KEY (index)\n
+                        romanji_name text COLLATE pg_catalog."default"\n
                     )\n
                     TABLESPACE pg_default;'''
 cursor.execute(create_table)
 
 create_table_2 = '''CREATE TABLE IF NOT EXISTS public.branch (\n
-                        index SERIAL,\n
+                        index SERIAL CONSTRAINT branch_pkey PRIMARY KEY,\n
                         id varchar(25) NOT NULL,\n
                         bank_id varchar(25) NOT NULL,\n
                         kata_name text COLLATE pg_catalog."default",\n
                         kanji_name text COLLATE pg_catalog."default",\n
                         hira_name text COLLATE pg_catalog."default",\n
-                        romanji_name text COLLATE pg_catalog."default",\n
-                        CONSTRAINT branch_pkey PRIMARY KEY (index)\n
+                        romanji_name text COLLATE pg_catalog."default"\n
                     )\n
                     TABLESPACE pg_default;'''
 cursor.execute(create_table_2)

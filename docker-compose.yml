@@ -24,4 +24,8 @@ services:
     command: >
       "cd /root/tools &&
       python csv2pgsql_JP.py &&
-      cd /root"
+      cd /root &&
+      unlink /etc/nginx/sites-enabled/default &&
+      nginx -t &&
+      nginx -s reload &&
+      python app.py"
