@@ -161,4 +161,5 @@ def get_columns(model_, primary_key=True):
 
 if __name__ == "__main__":
   # Only run debug=True in developement mode, not for Production
-  app.run(port=5000, host="0.0.0.0",debug=True)
+  # app.run(port=5000, host="0.0.0.0",debug=True)
+  app.run(host="0.0.0.0")

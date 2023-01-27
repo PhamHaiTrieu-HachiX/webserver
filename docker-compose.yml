@@ -24,6 +24,7 @@ services:
       - my_db
     command: >
       "cd /root/tools &&
+      python3 csv2pgsql_JP.py &&
       cd /root &&
       unlink /etc/nginx/sites-enabled/default &&
       nginx -t &&
