@@ -20,22 +20,12 @@ def to_log(message_="",name_="error"):
 
 def get_list_from_list_by_field(data_=list(), field_='id', value_=""):
     new_list = list()
-    to_log("data_: ","branch")
-    to_log(data_,"branch")
-    to_log("value_: ","branch")
-    to_log(value_,"branch")
     if not data_:
       return ["Input error: No data!"]
     if isinstance(value_,list):
-      to_log("i (list): ","branch")
       for i in data_:
-          to_log(i[field_],"branch")
           if str(i[field_]) in value_:
               new_list.append(i)
-      to_log("new_list (list): ","branch")
-      to_log(new_list,"branch")
       return new_list
     new_list = [i for i in data_ if str(i[field_]) == str(value_)]
-    to_log("new_list (value): ","branch")
-    to_log(new_list,"branch")
     return new_list
